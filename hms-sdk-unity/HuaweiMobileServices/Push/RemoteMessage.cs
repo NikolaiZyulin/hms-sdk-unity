@@ -1,96 +1,97 @@
 ﻿namespace HuaweiMobileServices.Push
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	using Utils;
+	using UnityEngine;
 
-    public class RemoteMessage : JavaObjectWrapper
-    {
+	public class RemoteMessage : JavaObjectWrapper
+	{
+		public class Notification : JavaObjectWrapper
+		{
+			[UnityEngine.Scripting.Preserve]
+			public Notification(AndroidJavaObject javaObject) : base(javaObject)
+			{
+			}
 
-        public class Notification : JavaObjectWrapper
-        {
+			public virtual string Title => CallAsString("getTitle");
 
-            [UnityEngine.Scripting.Preserve]
-            public Notification(AndroidJavaObject javaObject) : base(javaObject) { }
+			public virtual string TitleLocalizationKey => CallAsString("getTitleLocalizationKey");
 
-            public virtual string Title => CallAsString("getTitle");
+			public virtual string Body => CallAsString("getBody");
 
-            public virtual string TitleLocalizationKey => CallAsString("getTitleLocalizationKey");
+			public virtual string BodyLocalizationKey => CallAsString("getBodyLocalizationKey");
 
-            public virtual string Body => CallAsString("getBody");
+			public virtual string Icon => CallAsString("getIcon");
 
-            public virtual string BodyLocalizationKey => CallAsString("getBodyLocalizationKey");
+			public virtual string ImageUrl => CallAsUriString("getImageUrl");
 
-            public virtual string Icon => CallAsString("getIcon");
+			public virtual string Sound => CallAsString("getSound");
 
-            public virtual string ImageUrl => CallAsUriString("getImageUrl");
+			public virtual string Tag => CallAsString("getTag");
 
-            public virtual string Sound => CallAsString("getSound");
+			public virtual string Color => CallAsString("getColor");
 
-            public virtual string Tag => CallAsString("getTag");
+			public virtual string ClickAction => CallAsString("getClickAction");
 
-            public virtual string Color => CallAsString("getColor");
+			public virtual string IntentUri => CallAsString("getIntentUri");
 
-            public virtual string ClickAction => CallAsString("getClickAction");
+			public virtual string ChannelId => CallAsString("getChannelId");
 
-            public virtual string IntentUri => CallAsString("getIntentUri");
+			public virtual string Link => CallAsUriString("getLink");
 
-            public virtual string ChannelId => CallAsString("getChannelId");
+			public virtual int NotifyId => Call<int>("getNotifyId");
 
-            public virtual string Link => CallAsUriString("getLink");
+			public virtual bool DefaultLight => Call<bool>("getDefaultLight");
 
-            public virtual int NotifyId => Call<int>("getNotifyId");
+			public virtual bool DefaultSound => Call<bool>("getDefaultSound");
 
-            public virtual bool DefaultLight => Call<bool>("getDefaultLight");
+			public virtual bool DefaultVibrate => Call<bool>("getDefaultVibrate");
 
-            public virtual bool DefaultSound => Call<bool>("getDefaultSound");
+			public virtual long? When => Call<long?>("getWhen");
 
-            public virtual bool DefaultVibrate => Call<bool>("getDefaultVibrate");
+			public virtual bool LocalOnly => Call<bool>("getLocalOnly");
 
-            public virtual long? When => Call<long?>("getWhen");
+			public virtual int? BadgeNumber => Call<int?>("getBadgeNumber");
 
-            public virtual bool LocalOnly => Call<bool>("getLocalOnly");
+			public virtual bool AutoCancel => Call<bool>("getAutoCancel");
 
-            public virtual int? BadgeNumber => Call<int?>("getBadgeNumber");
+			public virtual int? Importance => Call<int?>("getImportance");
 
-            public virtual bool AutoCancel => Call<bool>("getAutoCancel");
+			public virtual string Ticker => CallAsString("getTicker");
 
-            public virtual int? Importance => Call<int?>("getImportance");
+			public virtual int? Visibility => Call<int?>("getVisibility");
+		}
 
-            public virtual string Ticker => CallAsString("getTicker");
+		public const int PRIORITY_UNKNOWN = 0;
+		public const int PRIORITY_HIGH = 1;
+		public const int PRIORITY_NORMAL = 2;
 
-            public virtual int? Visibility => Call<int?>("getVisibility");
+		[UnityEngine.Scripting.Preserve]
+		public RemoteMessage(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        }
+		public string CollapseKey => CallAsString("getCollapseKey");
 
-        public const int PRIORITY_UNKNOWN = 0;
-        public const int PRIORITY_HIGH = 1;
-        public const int PRIORITY_NORMAL = 2;
+		public string Data => CallAsString("getData");
 
-        [UnityEngine.Scripting.Preserve]
-        public RemoteMessage(AndroidJavaObject javaObject) : base(javaObject) { }
+		public string MessageId => CallAsString("getMessageId");
 
-        public string CollapseKey => CallAsString("getCollapseKey");
+		public string MessageType => CallAsString("getMessageType");
 
-        public string Data => CallAsString("getData");
+		public Notification GetNotification => CallAsWrapper<Notification>("getNotification");
 
-        public string MessageId => CallAsString("getMessageId");
+		public int OriginalUrgency => Call<int>("getOriginalUrgency");
 
-        public string MessageType => CallAsString("getMessageType");
+		public int Urgency => Call<int>("getUrgency");
 
-        public Notification GetNotification => CallAsWrapper<Notification>("getNotification");
+		public int Ttl => Call<int>("getTtl");
 
-        public int OriginalUrgency => Call<int>("getOriginalUrgency");
+		public long SentTime => Call<int>("getSentTime");
 
-        public int Urgency => Call<int>("getUrgency");
+		public string To => CallAsString("getTo");
 
-        public int Ttl => Call<int>("getTtl");
+		public string From => CallAsString("getFrom");
 
-        public long SentTime => Call<int>("getSentTime");
-
-        public string To => CallAsString("getTo");
-
-        public string From => CallAsString("getFrom");
-
-        public string Token => CallAsString("getToken");
-    }
+		public string Token => CallAsString("getToken");
+	}
 }

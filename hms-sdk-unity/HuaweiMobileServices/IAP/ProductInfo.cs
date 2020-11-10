@@ -1,6 +1,6 @@
 ﻿namespace HuaweiMobileServices.IAP
 {
-    using HuaweiMobileServices.Utils;
+    using Utils;
     using UnityEngine;
 
     // Wrapper for com.huawei.hms.iap.entity.ProductInfo
@@ -45,6 +45,7 @@
 
         public virtual int SubProductLevel => Call<int>("getSubProductLevel");
 
+        public virtual int Status => Call<int>("getStatus");
     }
 
 }

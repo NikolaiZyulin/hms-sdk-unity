@@ -1,6 +1,6 @@
 ﻿namespace HuaweiMobileServices.IAP
 {
-    using HuaweiMobileServices.Utils;
+    using Utils;
 
     // Wrapper for com.huawei.hms.iap.entity.InAppPurchaseData
     public class InAppPurchaseData : JavaObjectWrapper
@@ -12,7 +12,7 @@
 
         public virtual long ApplicationId => Call<long>("getApplicationId");
 
-        public virtual bool AutoRenewing => Call<bool>("getAutoRenewing");
+        public virtual bool AutoRenewing => Call<bool>("isAutoRenewing");
 
         public virtual string OrderID => CallAsString("getOrderID");
 
@@ -54,7 +54,7 @@
 
         public virtual long NumOfDiscount => Call<long>("getNumOfDiscount");
 
-        public virtual long ExpirationDate => Call<long>("getNumOfDiscount");
+        public virtual long ExpirationDate => Call<long>("getExpirationDate");
 
         public virtual int ExpirationIntent => Call<int>("getExpirationIntent");
 
@@ -78,7 +78,7 @@
 
         public virtual long RenewPrice => Call<long>("getRenewPrice");
 
-        public virtual bool SubValid => Call<bool>("getSubValid");
+        public virtual bool SubValid => Call<bool>("isSubValid");
 
         public virtual int CancelledSubKeepDays => Call<int>("getCancelledSubKeepDays");
 
@@ -87,8 +87,6 @@
         public virtual string DeveloperChallenge => CallAsString("getDeveloperChallenge");
 
         public virtual int ConsumptionState => Call<int>("getConsumptionState");
-
-        public virtual int Acknowledged => Call<int>("getAcknowledged");
 
         public virtual string PayOrderId => CallAsString("getPayOrderId");
 
@@ -101,6 +99,12 @@
         public virtual int CancelWay => Call<int>("getCancelWay");
 
         public virtual long CancellationTime => Call<long>("getCancellationTime");
+
+        public virtual long ResumeTime => Call<long>("getCancellationTime");
+
+        public virtual long GraceExpirationTime => Call<long>("getGraceExpirationTime");
+
+        public virtual int AccountFlag => Call<int>("getAccountFlag");
 
     }
 

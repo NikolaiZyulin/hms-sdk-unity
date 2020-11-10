@@ -1,6 +1,6 @@
 namespace HuaweiMobileServices.IAP
 {
-    using HuaweiMobileServices.Utils;
+    using Utils;
     using UnityEngine;
 
     // Wrapper for com.huawei.hms.iap.entity.ConsumeOwnedPurchaseResult

@@ -1,36 +1,32 @@
 ﻿using System.Collections.Generic;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.jos.games.ranking.Ranking
+	public class Ranking : JavaObjectWrapper
+	{
+		[Preserve]
+		private static readonly AndroidJavaClass RankingClass = new AndroidJavaClass("com.huawei.hms.jos.games.ranking.Ranking");
 
-    // Wrapper for com.huawei.hms.jos.games.ranking.Ranking
-    public class Ranking : JavaObjectWrapper
-    {
+		public const int SCORE_VALUE_HIGH_BETTER = 1;
+		public const int SCORE_VALUE_SMALL_BETTER = 0;
 
-        private const string CLASS_NAME = "com.huawei.hms.jos.games.ranking.Ranking";
+		public Ranking(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        private static readonly AndroidJavaClass sJavaClass = new AndroidJavaClass(CLASS_NAME);
+		public virtual string RankingDisplayName => CallAsString("getRankingDisplayName");
 
-        public const int SCORE_VALUE_HIGH_BETTER = 1;
+		public virtual string RankingImageUri => CallAsUriString("getRankingImageUri");
 
-        public const int SCORE_VALUE_SMALL_BETTER = 0;
+		public virtual string RankingId => CallAsString("getRankingId");
 
-        public Ranking(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual int RankingScoreOrder => Call<int>("getRankingScoreOrder");
 
-        public virtual string RankingDisplayName => CallAsString("getRankingDisplayName");
-
-        public virtual string RankingImageUri => CallAsUriString("getRankingImageUri");
-
-        public virtual string RankingId => CallAsString("getRankingId");
-
-        public virtual int RankingScoreOrder => Call<int>("getRankingScoreOrder");
-
-        public virtual IList<RankingVariant> RankingVariants =>
-            Call<AndroidJavaObject>("getRankingVariants").AsListFromWrappable<RankingVariant>();
-
-    }
-
+		public virtual IList<RankingVariant> RankingVariants =>
+			Call<AndroidJavaObject>("getRankingVariants").AsListFromWrappable<RankingVariant>();
+	}
 }

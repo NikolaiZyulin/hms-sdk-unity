@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.m0skit0.android.hms.unity">
+    package="org.unity.android.hms.unity">
 
     <application>
-        <activity android:name=".activity.NativeBridgeActivity" />
+        <activity android:name="org.unity.android.hms.unity.activity.NativeBridgeActivity" />
         <service
-            android:name=".push.HMSPushService"
+            android:name="org.unity.android.hms.unity.push.HMSPushService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />

@@ -1,20 +1,14 @@
 ﻿namespace com.huawei.hms.ads
 {
+	using UnityEngine;
 
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.ads.UnderAge
+	public static class UnderAge
+	{
+		private static readonly AndroidJavaClass UnderAgeClass = new AndroidJavaClass("com.huawei.hms.ads.UnderAge");
 
-    // Wrapper for com.huawei.hms.ads.UnderAge
-    public static class UnderAge
-    {
-
-        private static readonly AndroidJavaClass sJavaClass = new AndroidJavaClass("com.huawei.hms.ads.UnderAge");
-
-        public static int PROMISE_TRUE = sJavaClass.GetStatic<int>("PROMISE_TRUE");
-
-        public static int PROMISE_FALSE = sJavaClass.GetStatic<int>("PROMISE_FALSE");
-
-        public static int PROMISE_UNSPECIFIED = sJavaClass.GetStatic<int>("PROMISE_UNSPECIFIED");
-
-    }
-
+		public static int PROMISE_TRUE = UnderAgeClass.GetStatic<int>("PROMISE_TRUE");
+		public static int PROMISE_FALSE = UnderAgeClass.GetStatic<int>("PROMISE_FALSE");
+		public static int PROMISE_UNSPECIFIED = UnderAgeClass.GetStatic<int>("PROMISE_UNSPECIFIED");
+	}
 }

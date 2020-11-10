@@ -1,36 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using HuaweiMobileServices.Base;
+using HuaweiMobileServices.Utils;
+using Task = System.Threading.Tasks.Task;
+using Void = HuaweiMobileServices.Utils.Void;
 
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
-    using HuaweiMobileServices.Utils;
+	// Wrapper for com.huawei.hms.jos.games.AchievementsClient
+	public interface IAchievementsClient
+	{
+		void ShowAchievementList(Action onSuccess, Action<HMSException> onFailure);
 
-    // Wrapper for com.huawei.hms.jos.games.AchievementsClient
-    public interface IAchievementsClient
-    {
-        void ShowAchievementList(Action onSuccess, Action<HMSException> onFailure);
+		Task ShowAchievementListAsync();
 
-        System.Threading.Tasks.Task ShowAchievementListAsync();
+		void Grow(string paramString, int paramInt);
 
-        void Grow(string paramString, int paramInt);
+		ITask<bool> GrowWithResult(string paramString, int paramInt);
 
-        ITask<bool> GrowWithResult(string paramString, int paramInt);
+		ITask<IList<Achievement>> GetAchievementList(bool paramBoolean);
 
-        ITask<IList<Achievement>> GetAchievementList(bool paramBoolean);
+		void Visualize(string paramString);
 
-        void Visualize(string paramString);
+		ITask<Void> VisualizeWithResult(string paramString);
 
-        ITask<Void> VisualizeWithResult(string paramString);
+		void MakeSteps(string paramString, int paramInt);
 
-        void MakeSteps(string paramString, int paramInt);
+		ITask<bool> MakeStepsWithResult(string paramString, int paramInt);
 
-        ITask<bool> MakeStepsWithResult(string paramString, int paramInt);
+		void Reach(string paramString);
 
-        void Reach(string paramString);
-
-        ITask<Void> ReachWithResult(string paramString);
-    }
-
+		ITask<Void> ReachWithResult(string paramString);
+	}
 }

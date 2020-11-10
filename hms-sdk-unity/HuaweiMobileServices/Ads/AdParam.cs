@@ -2,118 +2,141 @@
 
 namespace HuaweiMobileServices.Ads
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	using Utils;
+	using UnityEngine;
 
-    // Wrapper for com.huawei.hms.ads.Adparam
-    public class AdParam : JavaObjectWrapper
-    {
+	// Wrapper for com.huawei.hms.ads.Adparam
+	public class AdParam : JavaObjectWrapper
+	{
+		[UnityEngine.Scripting.Preserve]
+		public AdParam(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        public AdParam(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual string TargetingContentUrl => CallAsString("getTargetingContentUrl");
 
-        public virtual string TargetingContentUrl => CallAsString("getTargetingContentUrl");
+		public int Gender => Call<int>("getGender");
 
-        public int Gender => Call<int>("getGender");
+		public ISet<string> Keywords => Call<AndroidJavaObject>("getKeywords").AsStringSet();
 
-        public ISet<string> Keywords => Call<AndroidJavaObject>("getKeywords").AsStringSet();
+		// Wrapper for com.huawei.hms.ads.Adparam.Builder
+		public class Builder : JavaObjectWrapper
+		{
+			[UnityEngine.Scripting.Preserve]
+			public Builder(AndroidJavaObject javaObject) : base(javaObject)
+			{
+			}
 
-        // Wrapper for com.huawei.hms.ads.Adparam.Builder
-        public class Builder : JavaObjectWrapper
-        {
+			public Builder() : base("com.huawei.hms.ads.AdParam$Builder")
+			{
+			}
 
-            [UnityEngine.Scripting.Preserve]
-            public Builder(AndroidJavaObject javaObject) : base(javaObject) { }
+			public Builder AddKeyword(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("addKeyword", param1String);
+				return this;
+			}
 
-            public Builder() : base("com.huawei.hms.ads.AdParam$Builder") { }
+			public AdParam Build() => CallAsWrapper<AdParam>("build");
 
-            public Builder AddKeyword(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("addKeyword", param1String);
-                return this;
-            }
+			public Builder SetTargetingContentUrl(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setTargetingContentUrl", param1String);
+				return this;
+			}
 
-            public AdParam Build() => CallAsWrapper<AdParam>("build");
+			public Builder SetGender(int param1Int)
+			{
+				JavaObject = Call<AndroidJavaObject>("setGender", param1Int);
+				return this;
+			}
 
-            public Builder SetTargetingContentUrl(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setTargetingContentUrl", param1String);
-                return this;
-            }
+			public Builder SetRequestOrigin(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setRequestOrigin", param1String);
+				return this;
+			}
 
-            public Builder SetGender(int param1Int)
-            {
-                JavaObject = Call<AndroidJavaObject>("setGender", param1Int);
-                return this;
-            }
+			public Builder SetBelongCountryCode(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setBelongCountryCode", param1String);
+				return this;
+			}
 
-            public Builder SetRequestOrigin(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setRequestOrigin", param1String);
-                return this;
-            }
+			public Builder SetTagForChildProtection(int? param1Integer)
+			{
+				JavaObject = Call<AndroidJavaObject>("setTagForChildProtection", param1Integer);
+				return this;
+			}
 
-            public Builder SetBelongCountryCode(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setBelongCountryCode", param1String);
-                return this;
-            }
+			public Builder SetNonPersonalizedAd(int? param1Integer)
+			{
+				JavaObject = Call<AndroidJavaObject>("setNonPersonalizedAd", param1Integer);
+				return this;
+			}
 
-            public Builder SetTagForChildProtection(int? param1Integer)
-            {
-                JavaObject = Call<AndroidJavaObject>("setTagForChildProtection", param1Integer);
-                return this;
-            }
+			public Builder SetAppLang(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setAppLang", param1String);
+				return this;
+			}
 
-            public Builder SetNonPersonalizedAd(int? param1Integer)
-            {
-                JavaObject = Call<AndroidJavaObject>("setNonPersonalizedAd", param1Integer);
-                return this;
-            }
+			public Builder SetAppCountry(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setAppCountry", param1String);
+				return this;
+			}
 
-            public Builder SetAppLang(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setAppLang", param1String);
-                return this;
-            }
+			public Builder SetTagForUnderAgeOfPromise(int? param1Integer)
+			{
+				JavaObject = Call<AndroidJavaObject>("setTagForUnderAgeOfPromise", param1Integer);
+				return this;
+			}
 
-            public Builder SetAppCountry(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setAppCountry", param1String);
-                return this;
-            }
+			public Builder SetAdContentClassification(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setAdContentClassification", param1String);
+				return this;
+			}
 
-            public Builder SetTagForUnderAgeOfPromise(int? param1Integer)
-            {
-                JavaObject = Call<AndroidJavaObject>("setTagForUnderAgeOfPromise", param1Integer);
-                return this;
-            }
+			public Builder SetRequestLocation(bool param1Bool)
+			{
+				JavaObject = Call<AndroidJavaObject>("setRequestLocation", param1Bool);
+				return this;
+			}
 
-            public Builder SetAdContentClassification(string param1String)
-            {
-                JavaObject = Call<AndroidJavaObject>("setAdContentClassification", param1String);
-                return this;
-            }
-        }
+			public Builder SetSearchTerm(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setSearchTerm", param1String);
+				return this;
+			}
 
-        public static class ErrorCode
-        {
-            public static int INNER = 0;
+			public Builder SetConsent(string param1String)
+			{
+				JavaObject = Call<AndroidJavaObject>("setConsent", param1String);
+				return this;
+			}
+		}
 
-            public static int INVALID_REQUEST = 1;
+		public static class ErrorCode
+		{
+			public static int INNER = 0;
 
-            public static int NETWORK_ERROR = 2;
+			public static int INVALID_REQUEST = 1;
 
-            public static int NO_AD = 3;
+			public static int NETWORK_ERROR = 2;
 
-            public static int AD_LOADING = 4;
+			public static int NO_AD = 3;
 
-            public static int LOW_API = 5;
+			public static int AD_LOADING = 4;
 
-            public static int BANNER_AD_EXPIRE = 6;
+			public static int LOW_API = 5;
 
-            public static int BANNER_AD_CANCEL = 7;
-        }
-    }
+			public static int BANNER_AD_EXPIRE = 6;
 
+			public static int BANNER_AD_CANCEL = 7;
+
+			public static int HMS_NOT_SUPPORT_SET_APP = 8;
+		}
+	}
 }

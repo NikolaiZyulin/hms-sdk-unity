@@ -1,6 +1,6 @@
 ﻿namespace HuaweiMobileServices.IAP
 {
-    using HuaweiMobileServices.Utils;
+    using Utils;
 
     // Wrapper for com.huawei.hms.iap.entity.ConsumeOwnedPurchaseReq
     public class ConsumeOwnedPurchaseReq : JavaObjectWrapper

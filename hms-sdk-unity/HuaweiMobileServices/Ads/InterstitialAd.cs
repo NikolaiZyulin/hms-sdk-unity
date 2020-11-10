@@ -1,43 +1,42 @@
 ﻿namespace HuaweiMobileServices.Ads
 {
+	using Utils;
 
-    using HuaweiMobileServices.Utils;
+	// Wrapper for com.huawei.hms.ads.InterstitialAd
+	public class InterstitialAd : JavaObjectWrapper
+	{
+		public InterstitialAd() : base("com.huawei.hms.ads.InterstitialAd", AndroidContext.ActivityContext)
+		{
+		}
 
-    // Wrapper for com.huawei.hms.ads.InterstitialAd
-    public class InterstitialAd : JavaObjectWrapper
-    {
+		public IAdListener AdListener
+		{
+			set => Call("setAdListener", new AdListenerWrapper(value));
+		}
 
-        public InterstitialAd() : base("com.huawei.hms.ads.InterstitialAd", AndroidContext.ActivityContext) { }
+		public string AdId
+		{
+			get => CallAsString("getAdId");
+			set => Call("setAdId", value);
+		}
 
-        public IAdListener AdListener
-        {
-            set => Call("setAdListener", new AdListenerWrapper(value));
-        }
+		public bool Loaded => Call<bool>("isLoaded");
 
-        public string AdId
-        {
-            set => Call("setAdId", value);
-        }
+		public bool Loading => Call<bool>("isLoading");
 
-        public bool Loaded => Call<bool>("isLoaded");
+		public void LoadAd(AdParam paramAdParam)
+		{
+			Call("loadAd", paramAdParam);
+		}
 
-        public bool Loading => Call<bool>("isLoading");
+		public void Show()
+		{
+			Call("show");
+		}
 
-        public void LoadAd(AdParam paramAdParam)
-        {
-            Call("loadAd", paramAdParam);
-        }
-
-        public void Show()
-        {
-            Call("show");
-        }
-
-        public IRewardAdListener RewardAdListener
-        {
-            set => Call("setRewardAdListener", new RewardAdListenerWrapper(value));
-        }
-
-    }
-
+		public IRewardAdListener RewardAdListener
+		{
+			set => Call("setRewardAdListener", new RewardAdListenerWrapper(value));
+		}
+	}
 }

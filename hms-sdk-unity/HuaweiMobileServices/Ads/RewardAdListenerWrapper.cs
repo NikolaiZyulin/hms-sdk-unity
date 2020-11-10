@@ -1,56 +1,56 @@
 ﻿namespace HuaweiMobileServices.Ads
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	using Utils;
+	using UnityEngine;
 
-    // Wrapper for com.huawei.hms.ads.reward.RewardAdListener
-    internal class RewardAdListenerWrapper : AndroidJavaProxy
-    {
-        private readonly IRewardAdListener mListener;
+	// Wrapper for com.huawei.hms.ads.reward.RewardAdListener
+	internal class RewardAdListenerWrapper : AndroidJavaProxy
+	{
+		private readonly IRewardAdListener m_listener;
 
-        public RewardAdListenerWrapper(IRewardAdListener listener) : base("com.huawei.hms.ads.reward.RewardAdListener")
-        {
-            mListener = listener;
-        }
+		public RewardAdListenerWrapper(IRewardAdListener listener) : base("com.huawei.hms.ads.reward.RewardAdListener")
+		{
+			m_listener = listener;
+		}
 
-        public void onRewarded(AndroidJavaObject reward)
-        {
-            mListener.OnRewarded(reward.AsWrapper<Reward>());
-        }
+		public void onRewarded(AndroidJavaObject reward)
+		{
+			m_listener.OnRewarded(reward.AsWrapper<Reward>());
+		}
 
-        public void onRewardAdClosed()
-        {
-            mListener.OnRewardAdClosed();
-        }
+		public void onRewardAdClosed()
+		{
+			m_listener.OnRewardAdClosed();
+		}
 
-        public void onRewardAdFailedToLoad(int errorCode)
-        {
-            mListener.OnRewardAdFailedToLoad(errorCode);
-        }
+		public void onRewardAdFailedToLoad(int errorCode)
+		{
+			m_listener.OnRewardAdFailedToLoad(errorCode);
+		}
 
-        public void onRewardAdLeftApp()
-        {
-            mListener.OnRewardAdLeftApp();
-        }
+		public void onRewardAdLeftApp()
+		{
+			m_listener.OnRewardAdLeftApp();
+		}
 
-        public void onRewardAdLoaded()
-        {
-            mListener.OnRewardAdLoaded();
-        }
+		public void onRewardAdLoaded()
+		{
+			m_listener.OnRewardAdLoaded();
+		}
 
-        public void onRewardAdOpened()
-        {
-            mListener.OnRewardAdOpened();
-        }
+		public void onRewardAdOpened()
+		{
+			m_listener.OnRewardAdOpened();
+		}
 
-        public void onRewardAdCompleted()
-        {
-            mListener.OnRewardAdCompleted();
-        }
+		public void onRewardAdCompleted()
+		{
+			m_listener.OnRewardAdCompleted();
+		}
 
-        public void onRewardAdStarted()
-        {
-            mListener.OnRewardAdStarted();
-        }
-    }
+		public void onRewardAdStarted()
+		{
+			m_listener.OnRewardAdStarted();
+		}
+	}
 }

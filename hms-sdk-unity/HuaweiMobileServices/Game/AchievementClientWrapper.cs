@@ -1,54 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HuaweiMobileServices.Base;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+using Task = System.Threading.Tasks.Task;
+using Void = HuaweiMobileServices.Utils.Void;
+
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
-    using HuaweiMobileServices.Utils;
-    using System.Threading.Tasks;
-    using UnityEngine;
+	internal class AchievementClientWrapper : JavaObjectWrapper, IAchievementsClient
+	{
+		[Preserve]
+		public AchievementClientWrapper(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    internal class AchievementClientWrapper : JavaObjectWrapper, IAchievementsClient
-    {
-        
+		public void ShowAchievementList(Action onSuccess, Action<HMSException> onFailure) =>
+			this.CallGenericBridge("getShowAchievementListIntent", onSuccess, onFailure);
 
-        [UnityEngine.Scripting.Preserve]
-        public AchievementClientWrapper(AndroidJavaObject javaObject) : base(javaObject) { }
+		public Task ShowAchievementListAsync()
+		{
+			var task = new TaskCompletionSource<int>();
+			ShowAchievementList(() => task.SetResult(0), task.SetException);
+			return task.Task;
+		}
 
-        public void ShowAchievementList(Action onSuccess, Action<HMSException> onFailure) => 
-            this.CallGenericBridge("getShowAchievementListIntent", onSuccess, onFailure);
+		public ITask<IList<Achievement>> GetAchievementList(bool paramBoolean)
+		{
+			var javaTask = Call<AndroidJavaObject>("getAchievementList", paramBoolean);
+			return new TaskWrapper<IList<Achievement>>(javaTask, AndroidJavaObjectExtensions.AsListFromWrappable<Achievement>);
+		}
 
-        public System.Threading.Tasks.Task ShowAchievementListAsync()
-        {
-            var task = new TaskCompletionSource<int>();
-            ShowAchievementList(() => task.SetResult(0), task.SetException);
-            return task.Task;
-        }
+		public void Grow(string paramString, int paramInt) => Call("grow", paramString.AsJavaString(), paramInt);
 
-        public ITask<IList<Achievement>> GetAchievementList(bool paramBoolean)
-        {
-            var javaTask = Call<AndroidJavaObject>("getAchievementList", paramBoolean);
-            return new TaskWrapper<IList<Achievement>>(javaTask, AndroidJavaObjectExtensions.AsListFromWrappable<Achievement>);
-        }
+		public ITask<bool> GrowWithResult(string paramString, int paramInt) =>
+			CallAsWrapper<TaskPrimitive<bool>>("growWithResult", paramString.AsJavaString(), paramInt);
 
-        public void Grow(string paramString, int paramInt) => Call("grow", paramString.AsJavaString(), paramInt);
+		public void MakeSteps(string paramString, int paramInt) => Call("makeSteps", paramString.AsJavaString(), paramInt);
 
-        public ITask<bool> GrowWithResult(string paramString, int paramInt) =>
-            CallAsWrapper<TaskPrimitive<bool>>("growWithResult", paramString.AsJavaString(), paramInt);
+		public ITask<bool> MakeStepsWithResult(string paramString, int paramInt) =>
+			CallAsWrapper<TaskPrimitive<bool>>("makeStepsWithResult", paramString.AsJavaString(), paramInt);
 
-        public void MakeSteps(string paramString, int paramInt) => Call("makeSteps", paramString.AsJavaString(), paramInt);
+		public void Reach(string paramString) => Call("reach", paramString.AsJavaString());
 
-        public ITask<bool> MakeStepsWithResult(string paramString, int paramInt) =>
-            CallAsWrapper<TaskPrimitive<bool>>("makeStepsWithResult", paramString.AsJavaString(), paramInt);
+		public ITask<Void> ReachWithResult(string paramString) =>
+			CallAsWrapper<TaskVoidWrapper>("reachWithResult", paramString.AsJavaString());
 
-        public void Reach(string paramString) => Call("reach", paramString.AsJavaString());
+		public void Visualize(string paramString) => Call("visualize", paramString.AsJavaString());
 
-        public ITask<Void> ReachWithResult(string paramString) =>
-            CallAsWrapper<TaskVoidWrapper>("reachWithResult", paramString.AsJavaString());
-
-        public void Visualize(string paramString) => Call("visualize", paramString.AsJavaString());
-
-        public ITask<Void> VisualizeWithResult(string paramString) =>
-            CallAsWrapper<TaskVoidWrapper>("visualizeWithResult", paramString.AsJavaString());
-    }
+		public ITask<Void> VisualizeWithResult(string paramString) =>
+			CallAsWrapper<TaskVoidWrapper>("visualizeWithResult", paramString.AsJavaString());
+	}
 }

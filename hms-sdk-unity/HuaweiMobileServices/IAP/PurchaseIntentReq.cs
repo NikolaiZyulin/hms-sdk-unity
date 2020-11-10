@@ -1,7 +1,7 @@
 ﻿namespace HuaweiMobileServices.IAP
 {
 
-    using HuaweiMobileServices.Utils;
+    using Utils;
 
     public class PurchaseIntentReq : JavaObjectWrapper
     {

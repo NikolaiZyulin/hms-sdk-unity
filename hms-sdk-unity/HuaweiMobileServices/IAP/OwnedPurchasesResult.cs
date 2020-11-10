@@ -1,13 +1,11 @@
 ﻿namespace HuaweiMobileServices.IAP
 {
-
-    using HuaweiMobileServices.Utils;
+    using Utils;
     using System.Collections.Generic;
     using UnityEngine;
 
     public class OwnedPurchasesResult : JavaObjectWrapper
     {
-
         [UnityEngine.Scripting.Preserve]
         public OwnedPurchasesResult(AndroidJavaObject javaObject) : base(javaObject) { }
 
@@ -30,5 +28,4 @@
             Call<AndroidJavaObject>("getPlacedInappSignatureList").AsStringList();
 
     }
-
 }

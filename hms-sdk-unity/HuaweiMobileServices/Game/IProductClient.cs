@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
+using HuaweiMobileServices.Base;
 
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
-
-    // Wrapper for com.huawei.hms.jos.product.ProductClient
-    public interface IProductClient
-    {
-        ITask<IList<ProductOrderInfo>> GetMissProductOrder();
-    }
-
+	// Wrapper for com.huawei.hms.jos.product.ProductClient
+	public interface IProductClient
+	{
+		ITask<IList<ProductOrderInfo>> GetMissProductOrder();
+	}
 }

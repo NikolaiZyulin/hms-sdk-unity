@@ -1,28 +1,31 @@
-﻿namespace HuaweiMobileServices.Base
+﻿using UnityEngine;
+
+namespace HuaweiMobileServices.Base
 {
+	using Utils;
+	
+	//Wrapper for com.huawei.agconnect.config.AGConnectServicesConfig
+	public class AGConnectServicesConfig : JavaObjectWrapper
+	{
+		private static readonly AndroidJavaClass AGConnectServicesConfigClass = new AndroidJavaClass("com.huawei.agconnect.config.AGConnectServicesConfig");
 
-    // Wrapper for com.huawei.agconnect.config.AGConnectServicesConfig
-    // TODO Do not use this class, it is not supported (yet). Consider MetadataHelper instead.
-    //public class AGConnectServicesConfig : JavaObjectWrapper
-    //{
+		public AGConnectServicesConfig(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    //    private static readonly AndroidJavaClass sJavaClass = new AndroidJavaClass("com.huawei.agconnect.config.AGConnectServicesConfig");
+		public static AGConnectServicesConfig FromContext() =>
+			AGConnectServicesConfigClass.CallStaticAsWrapper<AGConnectServicesConfig>("fromContext", AndroidContext.ActivityContext);
 
-    //    public AGConnectServicesConfig(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual bool GetBoolean(string path) => Call<bool>("getBoolean", path);
 
-    //    public static AGConnectServicesConfig FromContext() =>
-    //        sJavaClass.CallStaticAsWrapper<AGConnectServicesConfig>("fromContext", AndroidContext.ActivityContext);
+		public virtual bool GetBoolean(string path, bool def) => Call<bool>("getBoolean", path, def);
 
-    //    public virtual bool GetBoolean(string path) => Call<bool>("getBoolean", path);
+		public virtual int GetInt(string path) => Call<int>("getInt", path);
 
-    //    public virtual bool GetBoolean(string path, bool def) => Call<bool>("getBoolean", path, def);
+		public virtual int GetInt(string path, int def) => Call<int>("getInt", path, def);
 
-    //    public virtual int GetInt(string path) => Call<int>("getInt", path);
+		public virtual string GetString(string path) => CallAsString("getString", path);
 
-    //    public virtual int GetInt(string path, int def) => Call<int>("getInt", path, def);
-
-    //    public virtual string GetString(string path) => CallAsString("getString", path);
-
-    //    public virtual string GetString(string path, string def) => CallAsString("getString", path, def);
-    //}
+		public virtual string GetString(string path, string def) => CallAsString("getString", path, def);
+	}
 }

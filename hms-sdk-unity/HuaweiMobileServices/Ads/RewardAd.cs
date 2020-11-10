@@ -1,110 +1,112 @@
 ﻿namespace HuaweiMobileServices.Ads
 {
-    using HuaweiMobileServices.Utils;
-    using System;
-    using System.Threading.Tasks;
-    using UnityEngine;
+	using Utils;
+	using System;
+	using System.Threading.Tasks;
+	using UnityEngine;
 
-    // Wrapper for com.huawei.hms.ads.reward.RewardAd
-    public class RewardAd : JavaObjectWrapper
-    {
+	// Wrapper for com.huawei.hms.ads.reward.RewardAd
+	public class RewardAd : JavaObjectWrapper
+	{
+		private class LoadAdListener : IRewardAdLoadListener
+		{
+			private readonly Action m_onSuccess;
+			private readonly Action<int> m_onError;
 
-        private class LoadAdListener : IRewardAdLoadListener
-        {
+			public LoadAdListener(Action onSuccess, Action<int> onError)
+			{
+				m_onSuccess = onSuccess;
+				m_onError = onError;
+			}
 
-            private readonly Action mOnSuccess;
-            private readonly Action<int> mOnError;
+			public void OnRewardAdFailedToLoad(int errorCode)
+			{
+				m_onError.Invoke(errorCode);
+			}
 
-            public LoadAdListener(Action onSuccess, Action<int> onError)
-            {
-                mOnSuccess = onSuccess;
-                mOnError = onError;
-            }
+			public void OnRewardedLoaded()
+			{
+				m_onSuccess.Invoke();
+			}
+		}
 
-            public void OnRewardAdFailedToLoad(int errorCode)
-            {
-                mOnError.Invoke(errorCode);
-            }
+		private const string CLASS_NAME = "com.huawei.hms.ads.reward.RewardAd";
 
-            public void OnRewardedLoaded()
-            {
-                mOnSuccess.Invoke();
-            }
-        }
+		private static readonly AndroidJavaClass RewardAdClass = new AndroidJavaClass(CLASS_NAME);
 
-        private const string CLASS_NAME = "com.huawei.hms.ads.reward.RewardAd";
+		public static RewardAd CreateRewardAdInstance() =>
+			RewardAdClass.CallStaticAsWrapper<RewardAd>("createRewardAdInstance", AndroidContext.ActivityContext);
 
-        private static readonly AndroidJavaClass sJavaClass = new AndroidJavaClass(CLASS_NAME);
+		[UnityEngine.Scripting.Preserve]
+		public RewardAd(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        public static RewardAd CreateRewardAdInstance() =>
-            sJavaClass.CallStaticAsWrapper<RewardAd>("createRewardAdInstance", AndroidContext.ActivityContext);
+		public RewardAd(string paramString) : base("com.huawei.hms.ads.reward.RewardAd", AndroidContext.ActivityContext, paramString)
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        public RewardAd(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual Reward Reward => CallAsWrapper<Reward>("getReward");
 
-        public RewardAd(string paramString) : base("com.huawei.hms.ads.reward.RewardAd", AndroidContext.ActivityContext, paramString) { }
+		public virtual bool Loaded => Call<bool>("isLoaded");
 
-        public virtual Reward Reward => CallAsWrapper<Reward>("getReward");
+		public virtual void LoadAd(AdParam paramAdParam, Action onSuccess, Action<int> onError)
+		{
+			var listener = new LoadAdListener(onSuccess, onError);
+			Call("loadAd", paramAdParam, new RewardAdLoadListener(listener));
+		}
 
-        public virtual bool Loaded => Call<bool>("isLoaded");
+		public virtual Task LoadAdAsync(AdParam paramAdParam)
+		{
+			var task = new TaskCompletionSource<int>();
+			LoadAd(paramAdParam, () => task.SetResult(0), (errorCode) =>
+			{
+				var error = new HMSException(errorCode);
+				task.SetException(error);
+			});
+			return task.Task;
+		}
 
-        public virtual void LoadAd(AdParam paramAdParam, Action onSuccess, Action<int> onError)
-        {
-            var listener = new LoadAdListener(onSuccess, onError);
-            Call("loadAd", paramAdParam, new RewardAdLoadListener(listener));
-        }
+		public virtual IOnMetadataChangedListener OnMetadataChangedListener
+		{
+			set { Call("setOnMetadataChangedListener", new OnMetadataChangedListener(value)); }
+		}
 
-        public virtual Task LoadAdAsync(AdParam paramAdParam)
-        {
-            var task = new TaskCompletionSource<int>();
-            LoadAd(paramAdParam, () => task.SetResult(0), (errorCode) =>
-            {
-                var error = new HMSException(errorCode);
-                task.SetException(error);
-            });
-            return task.Task;
-        }
+		public virtual void Show(IRewardAdStatusListener paramRewardAdStatusListener, bool paramBoolean) =>
+			Call("show", AndroidContext.ActivityContext, new RewardAdStatusListener(paramRewardAdStatusListener), paramBoolean);
 
-        public virtual IOnMetadataChangedListener OnMetadataChangedListener
-        {
-            set
-            {
-                Call("setOnMetadataChangedListener", new OnMetadataChangedListener(value));
-            }
-        }
+		public virtual void Show(IRewardAdStatusListener paramRewardAdStatusListener) =>
+			Call("show", AndroidContext.ActivityContext, new RewardAdStatusListener(paramRewardAdStatusListener));
 
-        public virtual void Show(IRewardAdStatusListener paramRewardAdStatusListener, bool paramBoolean) =>
-            Call("show", AndroidContext.ActivityContext, new RewardAdStatusListener(paramRewardAdStatusListener), paramBoolean);
+		public virtual RewardVerifyConfig RewardVerifyConfig => CallAsWrapper<RewardVerifyConfig>("getRewardVerifyConfig");
 
-        public virtual void Show(IRewardAdStatusListener paramRewardAdStatusListener) =>
-            Call("show", AndroidContext.ActivityContext, new RewardAdStatusListener(paramRewardAdStatusListener));
+		public virtual void Destroy() => Call("destroy", AndroidContext.ActivityContext);
 
-        public virtual RewardVerifyConfig RewardVerifyConfig => CallAsWrapper<RewardVerifyConfig>("getRewardVerifyConfig");
+		public virtual IRewardAdListener RewardAdListener
+		{
+			set { Call("setRewardAdListener", new RewardAdListenerWrapper(value)); }
+		}
 
-        public virtual void Destroy() => Call("destroy", AndroidContext.ActivityContext);
+		public virtual string Data
+		{
+			get => CallAsString("getData");
+			set => Call("setData", value);
+		}
 
-        public virtual IRewardAdListener RewardAdListener
-        {
-            set
-            {
-                Call("setRewardAdListener", new RewardAdListenerWrapper(value));
-            }
-        }
+		public virtual string UserId
+		{
+			get => CallAsString("getUserId");
+			set => Call("setUserId", value);
+		}
+		
+		public virtual void LoadAd(string paramString, AdParam paramAdParam) => Call("loadAd", paramString, paramAdParam);
 
-        public virtual string Data => CallAsString("getData");
+		public virtual void Pause() => Call("pause", AndroidContext.ActivityContext);
 
-        public virtual string UserId => CallAsString("getUserId");
+		public virtual void Resume() => Call("resume", AndroidContext.ActivityContext);
 
-        public virtual void LoadAd(string paramString, AdParam paramAdParam) => Call("loadAd", paramString, paramAdParam);
+		public virtual bool Immersive => Call<bool>("isImmersive");
 
-        public virtual void Pause() => Call("pause", AndroidContext.ActivityContext);
-
-        public virtual void Resume() => Call("resume", AndroidContext.ActivityContext);
-
-        public virtual bool Immersive => Call<bool>("isImmersive");
-
-        public virtual void Show() => Call("show");
-
-    }
-
+		public virtual void Show() => Call("show");
+	}
 }

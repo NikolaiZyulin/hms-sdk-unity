@@ -1,25 +1,27 @@
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.jos.games.player.PlayerExtraInfo
+	public class PlayerExtraInfo : JavaObjectWrapper
+	{
+		[Preserve]
+		public PlayerExtraInfo(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    // Wrapper for com.huawei.hms.jos.games.player.PlayerExtraInfo
-    public class PlayerExtraInfo : JavaObjectWrapper
-    {
+		public PlayerExtraInfo(string json) : base("com.huawei.hms.jos.games.player.PlayerExtraInfo", json.AsJavaString())
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        public PlayerExtraInfo(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual bool IsAdult => Call<bool>("getIsAdult");
 
-        public PlayerExtraInfo(string json) : base("com.huawei.hms.jos.games.player.PlayerExtraInfo", json.AsJavaString()) { }
+		public virtual string PlayerId => CallAsString("getPlayerId");
 
-        public virtual bool IsAdult => Call<bool>("getIsAdult");
+		public virtual int PlayerDuration => Call<int>("getPlayerDuration");
 
-        public virtual string PlayerId => CallAsString("getPlayerId");
-
-        public virtual int PlayerDuration => Call<int>("getPlayerDuration");
-
-        public virtual bool IsRealName => Call<bool>("getIsRealName");
-
-    }
-
+		public virtual bool IsRealName => Call<bool>("getIsRealName");
+	}
 }

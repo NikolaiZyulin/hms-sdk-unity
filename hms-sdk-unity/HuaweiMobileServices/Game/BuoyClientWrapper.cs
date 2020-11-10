@@ -1,16 +1,18 @@
-﻿namespace HuaweiMobileServices.Game
+﻿using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+
+namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	internal class BuoyClientWrapper : JavaObjectWrapper, IBuoyClient
+	{
+		[Preserve]
+		public BuoyClientWrapper(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    internal class BuoyClientWrapper : JavaObjectWrapper, IBuoyClient
-    {
+		public void HideFloatWindow() => Call("hideFloatWindow");
 
-        [UnityEngine.Scripting.Preserve]
-        public BuoyClientWrapper(AndroidJavaObject javaObject) : base(javaObject) { }
-
-        public void HideFloatWindow() => Call("hideFloatWindow");
-
-        public void ShowFloatWindow() => Call("showFloatWindow");
-    }
+		public void ShowFloatWindow() => Call("showFloatWindow");
+	}
 }

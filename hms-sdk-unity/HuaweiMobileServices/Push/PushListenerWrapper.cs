@@ -1,31 +1,30 @@
 ﻿namespace HuaweiMobileServices.Push
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	using Utils;
+	using UnityEngine;
 
-    internal class PushListenerWrapper : AndroidJavaProxy
-    {
+	internal class PushListenerWrapper : AndroidJavaProxy
+	{
+		private readonly IPushListener m_listener;
 
-        private readonly IPushListener mListener;
+		public PushListenerWrapper(IPushListener listener) : base("org.unity.android.hms.unity.push.PushListener")
+		{
+			m_listener = listener;
+		}
 
-        public PushListenerWrapper(IPushListener listener) : base("org.m0skit0.android.hms.unity.push.PushListener")
-        {
-            mListener = listener;
-        }
+		public void onNewToken(string token)
+		{
+			m_listener?.OnNewToken(token);
+		}
 
-        public void onNewToken(string token)
-        {
-            mListener?.OnNewToken(token);
-        }
+		public void onTokenError(AndroidJavaObject e)
+		{
+			m_listener?.OnTokenError(e.AsException());
+		}
 
-        public void onTokenError(AndroidJavaObject e)
-        {
-            mListener?.OnTokenError(e.AsException());
-        }
-
-        public void onMessageReceived(AndroidJavaObject remoteMessage)
-        {
-            mListener?.OnMessageReceived(remoteMessage.AsWrapper<RemoteMessage>());
-        }
-    }
+		public void onMessageReceived(AndroidJavaObject remoteMessage)
+		{
+			m_listener?.OnMessageReceived(remoteMessage.AsWrapper<RemoteMessage>());
+		}
+	}
 }

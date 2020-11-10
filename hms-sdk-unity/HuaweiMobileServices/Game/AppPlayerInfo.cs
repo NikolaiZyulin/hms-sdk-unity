@@ -1,39 +1,25 @@
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.jos.games.AppPlayerInfo
+	public class AppPlayerInfo : JavaObjectWrapper
+	{
+		[Preserve]
+		public AppPlayerInfo(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    // Wrapper for com.huawei.hms.jos.games.AppPlayerInfo
-    public class AppPlayerInfo : JavaObjectWrapper
-    {
+		public virtual string Rank => CallAsString("getRank");
 
-        [UnityEngine.Scripting.Preserve]
-        public AppPlayerInfo(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual string Role => CallAsString("getRole");
 
-        public virtual string Rank
-        {
-            get => CallAsString("getRank");
-        }
+		public virtual string Area => CallAsString("getArea");
 
-        public virtual string Role
-        {
-            get => CallAsString("getRole");
-        }
+		public virtual string Sociaty => CallAsString("getSociaty");
 
-        public virtual string Area
-        {
-            get => CallAsString("getArea");
-        }
-
-        public virtual string Sociaty
-        {
-            get => CallAsString("getSociaty");
-        }
-
-        public virtual string PlayerId
-        {
-            get => CallAsString("getPlayerId");
-        }
-    }
-
+		public virtual string PlayerId => CallAsString("getPlayerId");
+	}
 }

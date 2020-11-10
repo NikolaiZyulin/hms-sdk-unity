@@ -1,13 +1,14 @@
 ﻿namespace HuaweiMobileServices.Utils
 {
-    using UnityEngine;
+	using UnityEngine;
 
-    public class AndroidBundle : JavaObjectWrapper
-    {
+	public class AndroidBundle : JavaObjectWrapper
+	{
+		[UnityEngine.Scripting.Preserve]
+		public AndroidBundle(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        public AndroidBundle(AndroidJavaObject javaObject) : base(javaObject) { }
-
-        public AndroidJavaObject Bundle => JavaObject;
-    }
+		public AndroidJavaObject Bundle => JavaObject;
+	}
 }

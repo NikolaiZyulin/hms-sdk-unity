@@ -1,54 +1,31 @@
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.jos.games.event.Event
+	public class Event : JavaObjectWrapper
+	{
+		[Preserve]
+		public Event(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    // Wrapper for com.huawei.hms.jos.games.event.Event
-    public class Event : JavaObjectWrapper
-    {
+		public virtual string Description => CallAsString("getDescription");
 
-        [UnityEngine.Scripting.Preserve]
-        public Event(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual string EventId => CallAsString("getEventId");
 
-        public virtual string Description
-        {
-            get => CallAsString("getDescription");
-        }
+		public virtual string ThumbnailUri => CallAsUriString("getThumbnailUri");
 
-        public virtual string EventId
-        {
-            get => CallAsString("getEventId");
-        }
+		public virtual string Name => CallAsString("getName");
 
-        public virtual string ThumbnailUri
-        {
-            get => CallAsUriString("getThumbnailUri");
-        }
+		public virtual Player GamePlayer => Call<AndroidJavaObject>("getGamePlayer").AsWrapper<Player>();
 
-        public virtual string Name
-        {
-            get => CallAsString("getName");
-        }
+		public virtual long Value => Call<long>("getValue");
 
-        public virtual Player GamePlayer
-        {
-            get => Call<AndroidJavaObject>("getGamePlayer").AsWrapper<Player>();
-        }
+		public virtual string LocaleValue => CallAsString("getLocaleValue");
 
-        public virtual long Value
-        {
-            get => Call<long>("getValue");
-        }
-
-        public virtual string LocaleValue
-        {
-            get => CallAsString("getLocaleValue");
-        }
-
-        public virtual bool Visible
-        {
-            get => Call<bool>("isVisible");
-        }
-    }
-
+		public virtual bool Visible => Call<bool>("isVisible");
+	}
 }

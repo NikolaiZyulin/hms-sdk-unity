@@ -1,10 +1,11 @@
 ﻿namespace HuaweiMobileServices.Utils
 {
-    public sealed class Void
-    {
+	public sealed class Void
+	{
+		internal static readonly Void INSTANCE = new Void();
 
-        internal static readonly Void INSTANCE = new Void();
-
-        private Void() { }
-    }
+		private Void()
+		{
+		}
+	}
 }

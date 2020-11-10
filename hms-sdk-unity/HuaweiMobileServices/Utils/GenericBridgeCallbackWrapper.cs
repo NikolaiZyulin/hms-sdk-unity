@@ -2,38 +2,37 @@
 
 namespace HuaweiMobileServices.Utils
 {
-    using UnityEngine;
+	using UnityEngine;
 
-    internal class GenericBridgeCallbackWrapper : AndroidJavaProxy
-    {
+	internal class GenericBridgeCallbackWrapper : AndroidJavaProxy
+	{
+		private Action<AndroidIntent> m_onSuccessListener;
+		private Action<HMSException> m_onFailureListener;
 
-        private Action<AndroidIntent> mOnSuccessListener;
-        private Action<HMSException> mOnFailureListener;
+		public GenericBridgeCallbackWrapper() : base("org.unity.android.hms.unity.GenericBridgeCallback")
+		{
+		}
 
-        public GenericBridgeCallbackWrapper() : base("org.m0skit0.android.hms.unity.GenericBridgeCallback") { }
+		public GenericBridgeCallbackWrapper AddOnSuccessListener(Action<AndroidIntent> onSuccessListener)
+		{
+			m_onSuccessListener = onSuccessListener;
+			return this;
+		}
 
-        public GenericBridgeCallbackWrapper AddOnSuccessListener(Action<AndroidIntent> onSuccessListener)
-        {
-            mOnSuccessListener = onSuccessListener;
-            return this;
-        }
+		public GenericBridgeCallbackWrapper AddOnFailureListener(Action<HMSException> onFailureListener)
+		{
+			m_onFailureListener = onFailureListener;
+			return this;
+		}
 
-        public GenericBridgeCallbackWrapper AddOnFailureListener(Action<HMSException> onFailureListener)
-        {
-            mOnFailureListener = onFailureListener;
-            return this;
-        }
+		public void onSuccess(AndroidJavaObject intent)
+		{
+			m_onSuccessListener?.Invoke(intent.AsWrapper<AndroidIntent>());
+		}
 
-        // WARNING: DO NO MODIFY METHOD NAME, THIS IS CALLED DIRECTLY FROM JAVA!
-        public void onSuccess(AndroidJavaObject intent)
-        {
-            mOnSuccessListener?.Invoke(intent.AsWrapper<AndroidIntent>());
-        }
-
-        // WARNING: DO NO MODIFY METHOD NAME, THIS IS CALLED DIRECTLY FROM JAVA!
-        public void onFailure(AndroidJavaObject exception)
-        {
-            mOnFailureListener?.Invoke(exception.AsException());
-        }
-    }
+		public void onFailure(AndroidJavaObject exception)
+		{
+			m_onFailureListener?.Invoke(exception.AsException());
+		}
+	}
 }

@@ -1,36 +1,34 @@
 ﻿namespace HuaweiMobileServices.Id
 {
+	using HuaweiMobileServices.Base;
+	using Utils;
+	using UnityEngine;
 
-    using HuaweiMobileServices.Base;
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.aaid.HmsInstanceId
+	public class HmsInstanceId : JavaObjectWrapper
+	{
+		private static readonly AndroidJavaClass HmsInstanceIdClass = new AndroidJavaClass("com.huawei.hms.aaid.HmsInstanceId");
 
-    // Wrapper for com.huawei.hms.aaid.HmsInstanceId
-    public class HmsInstanceId : JavaObjectWrapper
-    {
+		[UnityEngine.Scripting.Preserve]
+		public HmsInstanceId(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        private static readonly AndroidJavaClass sJavaClass = new AndroidJavaClass("com.huawei.hms.aaid.HmsInstanceId");
+		public static HmsInstanceId GetInstance() =>
+			HmsInstanceIdClass.CallStaticAsWrapper<HmsInstanceId>("getInstance", AndroidContext.ApplicationContext);
 
-        [UnityEngine.Scripting.Preserve]
-        public HmsInstanceId(AndroidJavaObject javaObject) : base(javaObject) { }
+		public virtual string Id => CallAsString("getId");
 
-        public static HmsInstanceId GetInstance() =>
-            sJavaClass.CallStaticAsWrapper<HmsInstanceId>("getInstance", AndroidContext.ApplicationContext);
+		public virtual ITask<AAIDResult> AAID => CallAsWrapper<TaskJavaObjectWrapper<AAIDResult>>("getAAID");
 
-        public virtual string Id => CallAsString("getId");
+		public virtual long CreationTime => Call<long>("getCreationTime");
 
-        public virtual ITask<AAIDResult> AAID => CallAsWrapper<TaskJavaObjectWrapper<AAIDResult>>("getAAID");
+		public virtual void DeleteAAID() => Call("deleteAAID");
 
-        public virtual long CreationTime => Call<long>("getCreationTime");
+		public virtual string GetToken(string paramString1, string paramString2) =>
+			CallAsString("getToken", paramString1, paramString2);
 
-        public virtual void DeleteAAID() => Call("deleteAAID");
-
-        public virtual string GetToken(string paramString1, string paramString2) =>
-            CallAsString("getToken", paramString1, paramString2);
-
-        public virtual void DeleteToken(string paramString1, string paramString2) =>
-            Call("deleteToken", paramString1, paramString2);
-
-    }
-
+		public virtual void DeleteToken(string paramString1, string paramString2) =>
+			Call("deleteToken", paramString1, paramString2);
+	}
 }

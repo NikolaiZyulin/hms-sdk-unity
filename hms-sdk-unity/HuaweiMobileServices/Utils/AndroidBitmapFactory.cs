@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Scripting;
+
 namespace HuaweiMobileServices.Utils
 {
-    public class AndroidBitmapFactory : JavaObjectWrapper
-    {
-        private const string CLASS_NAME = "android.graphics.BitmapFactory";
-        private static AndroidJavaClass BitmapFactoryClass = new AndroidJavaClass(CLASS_NAME);
+	public class AndroidBitmapFactory : JavaObjectWrapper
+	{
+		private const string CLASS_NAME = "android.graphics.BitmapFactory";
+		private static AndroidJavaClass BitmapFactoryClass = new AndroidJavaClass(CLASS_NAME);
 
-        [UnityEngine.Scripting.Preserve]
-        public AndroidBitmapFactory(AndroidJavaObject javaObject) : base(javaObject) { }
- 
-        public static AndroidJavaObject DecodeFile (string fileName) => BitmapFactoryClass.CallStatic<AndroidJavaObject>("decodeFile", fileName);
+		[Preserve]
+		public AndroidBitmapFactory(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-
-    }
+		public static AndroidJavaObject DecodeFile(string fileName) => BitmapFactoryClass.CallStatic<AndroidJavaObject>("decodeFile", fileName);
+	}
 }

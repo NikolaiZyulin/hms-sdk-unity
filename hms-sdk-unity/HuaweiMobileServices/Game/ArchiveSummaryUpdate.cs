@@ -1,93 +1,77 @@
 ﻿using System;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Utils;
-    using UnityEngine;
+	// Wrapper for com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate
+	public class ArchiveSummaryUpdate : JavaObjectWrapper
+	{
+		[Preserve]
+		public ArchiveSummaryUpdate(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-    // Wrapper for com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate
-    public class ArchiveSummaryUpdate : JavaObjectWrapper
-    {
+		public string DescInfo => Call<string>("getDescInfo");
 
-        [UnityEngine.Scripting.Preserve]
-        public ArchiveSummaryUpdate(AndroidJavaObject javaObject) : base(javaObject) { }
+		public long? ActiveTime => Call<long>("getActiveTime");
 
-        public string DescInfo
-        {
-            get => Call<string>("getDescInfo");
-        }
+		public long? CurrentProgress => Call<long>("getCurrentProgress");
 
-        public long? ActiveTime
-        {
-            get => Call<long>("getActiveTime");
-        }
+		public AndroidBitmap Thumbnail => Call<AndroidBitmap>("getThumbnail");
 
-        public long? CurrentProgress
-        {
-            get => Call<long>("getCurrentProgress");
-        }
+		public string ThumbnailMimeType => Call<string>("getThumbnailMimeType");
 
-        public AndroidBitmap Thumbnail
-        {
-            get => Call<AndroidBitmap>("getThumbnail");
-        }
+		// Wrapper for  com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate.Builder
+		public class Builder : JavaObjectWrapper
+		{
+			[Preserve]
+			public Builder(AndroidJavaObject javaObject) : base(javaObject)
+			{
+			}
 
-        public string ThumbnailMimeType
-        {
-            get => Call<string>("getThumbnailMimeType");
-        }
+			public Builder() : base("com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate$Builder")
+			{
+			}
 
-        // Wrapper for  com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate.Builder
-        public class Builder : JavaObjectWrapper
-        {
-            [UnityEngine.Scripting.Preserve]
-            public Builder(AndroidJavaObject javaObject) : base(javaObject) { }
+			public ArchiveSummaryUpdate Build() => CallAsWrapper<ArchiveSummaryUpdate>("build");
 
-            public Builder() : base("com.huawei.hms.jos.games.archive.ArchiveSummaryUpdate$Builder") { }
+			public Builder FromSummary(ArchiveSummary summary)
+			{
+				JavaObject = Call<AndroidJavaObject>("fromSummary", summary);
+				return this;
+			}
 
-            public ArchiveSummaryUpdate Build() => CallAsWrapper<ArchiveSummaryUpdate>("build");
+			public Builder SetActiveTime(long setActiveTime)
+			{
+				JavaObject = Call<AndroidJavaObject>("setActiveTime", setActiveTime);
+				return this;
+			}
 
-            public Builder FromSummary(ArchiveSummary summary)
-            {
-                JavaObject = Call<AndroidJavaObject>("fromSummary", summary);
-                return this;
-            }
-            public Builder SetActiveTime(long setActiveTime)
-            {
-                JavaObject = Call<AndroidJavaObject>("setActiveTime", setActiveTime);
-                return this;
-            }
-            public Builder SetCurrentProgress(long progressValue)
-            {
-                JavaObject = Call<AndroidJavaObject>("setCurrentProgress", progressValue);
-                return this;
-            }
-            public Builder SetDescInfo(String description)
-            {
-                JavaObject = Call<AndroidJavaObject>("setDescInfo", description);
-                return this;
-            }
-            public Builder SetThumbnail(AndroidBitmap bitmap)
-            {
-                JavaObject = Call<AndroidJavaObject>("setThumbnail", bitmap);
-                return this;
-            }
-            public Builder SetThumbnailMimeType(String imageMimeType)
-            {
-                JavaObject = Call<AndroidJavaObject>("setThumbnailMimeType", imageMimeType);
-                return this;
-            }
+			public Builder SetCurrentProgress(long progressValue)
+			{
+				JavaObject = Call<AndroidJavaObject>("setCurrentProgress", progressValue);
+				return this;
+			}
 
+			public Builder SetDescInfo(String description)
+			{
+				JavaObject = Call<AndroidJavaObject>("setDescInfo", description);
+				return this;
+			}
 
+			public Builder SetThumbnail(AndroidBitmap bitmap)
+			{
+				JavaObject = Call<AndroidJavaObject>("setThumbnail", bitmap);
+				return this;
+			}
 
-
-
-
-
-
-
-
-        }
-    }
-
+			public Builder SetThumbnailMimeType(String imageMimeType)
+			{
+				JavaObject = Call<AndroidJavaObject>("setThumbnailMimeType", imageMimeType);
+				return this;
+			}
+		}
+	}
 }

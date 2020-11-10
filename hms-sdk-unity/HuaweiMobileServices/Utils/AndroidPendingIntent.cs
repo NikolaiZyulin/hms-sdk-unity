@@ -1,13 +1,14 @@
 ﻿namespace HuaweiMobileServices.Utils
 {
-    using UnityEngine;
+	using UnityEngine;
 
-    public class AndroidPendingIntent : JavaObjectWrapper
-    {
+	public class AndroidPendingIntent : JavaObjectWrapper
+	{
+		[UnityEngine.Scripting.Preserve]
+		public AndroidPendingIntent(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
 
-        [UnityEngine.Scripting.Preserve]
-        public AndroidPendingIntent(AndroidJavaObject javaObject) : base(javaObject) { }
-
-        public AndroidJavaObject Intent => JavaObject;
-    }
+		public AndroidJavaObject Intent => JavaObject;
+	}
 }

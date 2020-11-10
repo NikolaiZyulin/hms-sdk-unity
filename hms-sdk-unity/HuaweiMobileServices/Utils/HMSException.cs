@@ -2,32 +2,33 @@
 
 namespace HuaweiMobileServices.Utils
 {
-    using UnityEngine;
+	using UnityEngine;
 
-    public class HMSException : Exception
-    {
+	public class HMSException : Exception
+	{
+		public HMSException(string message) : base(message)
+		{
+		}
 
-        public HMSException(string message) : base(message) { }
+		internal HMSException(int errorCode) : base()
+		{
+			ErrorCode = errorCode;
+		}
 
-        internal HMSException(int errorCode) : base()
-        {
-            ErrorCode = errorCode;
-        }
+		internal HMSException(AndroidJavaObject javaObject) : base()
+		{
+			JavaException = javaObject;
+		}
 
-        internal HMSException(AndroidJavaObject javaObject) : base()
-        {
-            JavaException = javaObject;
-        }
+		internal AndroidJavaObject JavaException { get; }
 
-        internal AndroidJavaObject JavaException { get; }
+		public int ErrorCode { get; }
 
-        public int ErrorCode { get; }
+		public string WrappedExceptionMessage => JavaException.Call<AndroidJavaObject>("getMessage").AsString();
 
-        public string WrappedExceptionMessage => JavaException.Call<AndroidJavaObject>("getMessage").AsString();
-
-        public string WrappedCauseMessage => JavaException
-            .Call<AndroidJavaObject>("getCause")
-            ?.Call<AndroidJavaObject>("getMessage")
-            .AsString();
-    }
+		public string WrappedCauseMessage => JavaException
+			.Call<AndroidJavaObject>("getCause")
+			?.Call<AndroidJavaObject>("getMessage")
+			.AsString();
+	}
 }

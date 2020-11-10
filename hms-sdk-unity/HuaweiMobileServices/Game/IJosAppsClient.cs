@@ -1,11 +1,11 @@
-﻿namespace HuaweiMobileServices.Game
+﻿using HuaweiMobileServices.Base;
+
+namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
+	public interface IJosAppsClient
+	{
+		void Init();
 
-    public interface IJosAppsClient
-    {
-        void Init();
-
-        ITask<string> AppId { get; }
-    }
+		ITask<string> AppId { get; }
+	}
 }

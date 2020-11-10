@@ -1,13 +1,12 @@
-﻿namespace HuaweiMobileServices.Game
+﻿using HuaweiMobileServices.Base;
+
+namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
+	// Wrapper for com.huawei.hms.jos.games.GameSummaryClient
+	public interface IGameSummaryClient
+	{
+		ITask<GameSummary> LocalGameSummary { get; }
 
-    // Wrapper for com.huawei.hms.jos.games.GameSummaryClient
-    public interface IGameSummaryClient
-    {
-        ITask<GameSummary> LocalGameSummary { get; }
-
-        ITask<GameSummary> GameSummary { get; }
-    }
-
+		ITask<GameSummary> GameSummary { get; }
+	}
 }

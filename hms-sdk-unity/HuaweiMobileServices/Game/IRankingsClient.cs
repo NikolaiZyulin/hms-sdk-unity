@@ -1,52 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using HuaweiMobileServices.Base;
+using HuaweiMobileServices.Utils;
+using Task = System.Threading.Tasks.Task;
 
 namespace HuaweiMobileServices.Game
 {
-    using HuaweiMobileServices.Base;
-    using HuaweiMobileServices.Utils;
+	// Wrapper for com.huawei.hms.jos.games.RankingsClient
+	public interface IRankingsClient
+	{
+		void ShowTotalRankings(Action onSuccess, Action<HMSException> onFailure);
 
-    // Wrapper for com.huawei.hms.jos.games.RankingsClient
-    public interface IRankingsClient
-    {
+		Task ShowTotalRankingsAsync();
 
-        void ShowTotalRankings(Action onSuccess, Action<HMSException> onFailure);
+		ITask<AndroidIntent> GetRankingIntent(string paramString, int paramInt);
 
-        System.Threading.Tasks.Task ShowTotalRankingsAsync();
+		ITask<AndroidIntent> GetRankingIntent(string paramString);
 
-        ITask<AndroidIntent> GetRankingIntent(string paramString, int paramInt);
+		ITask<RankingScores> GetRankingTopScores(string paramString, int paramInt1, int paramInt2, long paramLong, int paramInt3);
 
-        ITask<AndroidIntent> GetRankingIntent(string paramString);
+		ITask<RankingScores> GetRankingTopScores(string paramString, int paramInt1, int paramInt2, bool paramBoolean);
 
-        ITask<RankingScores> GetRankingTopScores(string paramString, int paramInt1, int paramInt2, long paramLong, int paramInt3);
+		void SubmitRankingScore(string paramString1, long paramLong, string paramString2);
 
-        ITask<RankingScores> GetRankingTopScores(string paramString, int paramInt1, int paramInt2, bool paramBoolean);
+		void SubmitRankingScore(string paramString, long paramLong);
 
-        void SubmitRankingScore(string paramString1, long paramLong, string paramString2);
+		ITask<ScoreSubmissionInfo> SubmitScoreWithResult(string paramString1, long paramLong, string paramString2);
 
-        void SubmitRankingScore(string paramString, long paramLong);
+		ITask<ScoreSubmissionInfo> SubmitScoreWithResult(string paramString, long paramLong);
 
-        ITask<ScoreSubmissionInfo> SubmitScoreWithResult(string paramString1, long paramLong, string paramString2);
+		ITask<int> GetRankingSwitchStatus();
 
-        ITask<ScoreSubmissionInfo> SubmitScoreWithResult(string paramString, long paramLong);
+		ITask<int> SetRankingSwitchStatus(int paramInt);
 
-        ITask<int> GetRankingSwitchStatus();
+		ITask<RankingScore> GetCurrentPlayerRankingScore(string paramString, int paramInt);
 
-        ITask<int> SetRankingSwitchStatus(int paramInt);
+		ITask<IList<Ranking>> GetRankingSummary(bool paramBoolean);
 
-        ITask<RankingScore> GetCurrentPlayerRankingScore(string paramString, int paramInt);
+		ITask<Ranking> GetRankingSummary(string paramString, bool paramBoolean);
 
-        ITask<IList<Ranking>> GetRankingSummary(bool paramBoolean);
+		ITask<RankingScores> GetMoreRankingScores(string paramString, long paramLong, int paramInt1, int paramInt2, int paramInt3);
 
-        ITask<Ranking> GetRankingSummary(string paramString, bool paramBoolean);
+		ITask<RankingScores> GetPlayerCenteredRankingScores(string paramString, int paramInt1, int paramInt2, bool paramBoolean);
 
-        ITask<RankingScores> GetMoreRankingScores(string paramString, long paramLong, int paramInt1, int paramInt2, int paramInt3);
-
-        ITask<RankingScores> GetPlayerCenteredRankingScores(string paramString, int paramInt1, int paramInt2, bool paramBoolean);
-
-        ITask<RankingScores> GetPlayerCenteredRankingScores(string paramString, int paramInt1, int paramInt2, long paramLong, int paramInt3);
-
-    }
-
+		ITask<RankingScores> GetPlayerCenteredRankingScores(string paramString, int paramInt1, int paramInt2, long paramLong, int paramInt3);
+	}
 }
