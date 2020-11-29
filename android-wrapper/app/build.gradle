@@ -27,6 +27,7 @@ dependencies {
     compileOnly 'com.huawei.hms:iap:5.0.4.301'
     compileOnly 'com.huawei.agconnect:agconnect-crash:1.4.1.300'
     compileOnly 'com.huawei.agconnect:agconnect-auth:1.4.1.300'
+    compileOnly 'com.huawei.agconnect:agcp:1.4.1.300'
     compileOnly 'com.huawei.hms:push:5.0.2.300'
     compileOnly 'com.huawei.hms:hwid:5.0.3.301'
     compileOnly 'com.huawei.hms:hianalytics:5.0.4.301'

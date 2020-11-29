@@ -5,8 +5,7 @@ namespace HuaweiMobileServices.Utils
 {
 	public class AndroidBitmapFactory : JavaObjectWrapper
 	{
-		private const string CLASS_NAME = "android.graphics.BitmapFactory";
-		private static AndroidJavaClass BitmapFactoryClass = new AndroidJavaClass(CLASS_NAME);
+		private static readonly AndroidJavaClass BitmapFactoryClass = new AndroidJavaClass("android.graphics.BitmapFactory");
 
 		[Preserve]
 		public AndroidBitmapFactory(AndroidJavaObject javaObject) : base(javaObject)

@@ -25,7 +25,7 @@ namespace HuaweiMobileServices.Id
 				{
 					HuaweiIdAuthManager.ParseAuthResultFromIntent(resultIntent)
 						.AddOnFailureListener(onFailure)
-						.AddOnSuccessListener((authHuaweiId) => { onSuccess.Invoke(authHuaweiId); });
+						.AddOnSuccessListener(onSuccess.Invoke);
 				});
 			GenericBridgeClass.CallStatic("receiveShow", intent, callback);
 		}

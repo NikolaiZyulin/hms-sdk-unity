@@ -18,7 +18,7 @@ namespace HuaweiMobileServices.Analytics
         {
             if (m_hiAnalyticsInstance == null)
             {
-                var analyticsClassObject = AnalyticsClass.CallStatic<AndroidJavaObject>("getInstance", AndroidContext.ApplicationContext);
+                var analyticsClassObject = AnalyticsClass.CallStatic<AndroidJavaObject>("getInstance", AndroidContext.ActivityContext);
                 m_hiAnalyticsInstance = new HiAnalyticsInstance(analyticsClassObject);
             }
 

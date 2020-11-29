@@ -4,13 +4,11 @@ namespace HuaweiMobileServices.Utils
 {
 	public class Bundle : JavaObjectWrapper
 	{
-		private const string CLASS_NAME = "android.os.Bundle";
-
 		public Bundle(AndroidJavaObject javaObject) : base(javaObject)
 		{
 		}
 
-		public Bundle() : base(CLASS_NAME)
+		public Bundle() : base("android.os.Bundle")
 		{
 		}
 
