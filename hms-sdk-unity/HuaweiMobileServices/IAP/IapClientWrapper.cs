@@ -1,12 +1,13 @@
-﻿namespace HuaweiMobileServices.IAP
-{
-	using Base;
-	using Utils;
-	using UnityEngine;
+﻿using HuaweiMobileServices.Base;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
 
+namespace HuaweiMobileServices.IAP
+{
 	internal class IapClientWrapper : JavaObjectWrapper, IIapClient
 	{
-		[UnityEngine.Scripting.Preserve]
+		[Preserve]
 		public IapClientWrapper(AndroidJavaObject iapClientJava) : base(iapClientJava)
 		{
 		}

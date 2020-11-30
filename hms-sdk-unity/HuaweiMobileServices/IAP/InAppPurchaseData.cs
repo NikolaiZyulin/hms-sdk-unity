@@ -1,111 +1,110 @@
-﻿namespace HuaweiMobileServices.IAP
+﻿using HuaweiMobileServices.Utils;
+
+namespace HuaweiMobileServices.IAP
 {
-    using Utils;
+	// Wrapper for com.huawei.hms.iap.entity.InAppPurchaseData
+	public class InAppPurchaseData : JavaObjectWrapper
+	{
+		public const int NOT_PRESENT = -2147483648;
 
-    // Wrapper for com.huawei.hms.iap.entity.InAppPurchaseData
-    public class InAppPurchaseData : JavaObjectWrapper
-    {
+		public InAppPurchaseData(string paramString) : base("com.huawei.hms.iap.entity.InAppPurchaseData", paramString)
+		{
+		}
 
-        public const int NOT_PRESENT = -2147483648;
+		public virtual long ApplicationId => Call<long>("getApplicationId");
 
-        public InAppPurchaseData(string paramString) : base("com.huawei.hms.iap.entity.InAppPurchaseData", paramString) { }
+		public virtual bool AutoRenewing => Call<bool>("isAutoRenewing");
 
-        public virtual long ApplicationId => Call<long>("getApplicationId");
+		public virtual string OrderID => CallAsString("getOrderID");
 
-        public virtual bool AutoRenewing => Call<bool>("isAutoRenewing");
+		public virtual string PackageName => CallAsString("getPackageName");
 
-        public virtual string OrderID => CallAsString("getOrderID");
+		public virtual string ProductId => CallAsString("getProductId");
 
-        public virtual string PackageName => CallAsString("getPackageName");
+		public virtual string ProductName => CallAsString("getProductName");
 
-        public virtual string ProductId => CallAsString("getProductId");
+		public virtual long PurchaseTime => Call<long>("getPurchaseTime");
 
-        public virtual string ProductName => CallAsString("getProductName");
+		public virtual int PurchaseState => Call<int>("getPurchaseState");
 
-        public virtual long PurchaseTime => Call<long>("getPurchaseTime");
+		public virtual string DeveloperPayload => CallAsString("getDeveloperPayload");
 
-        public virtual int PurchaseState => Call<int>("getPurchaseState");
+		public virtual string PurchaseToken => CallAsString("getPurchaseToken");
 
-        public virtual string DeveloperPayload => CallAsString("getDeveloperPayload");
+		public virtual int PurchaseType => Call<int>("getPurchaseType");
 
-        public virtual string PurchaseToken => CallAsString("getPurchaseToken");
+		public virtual string Currency => CallAsString("getCurrency");
 
-        public virtual int PurchaseType => Call<int>("getPurchaseType");
+		public virtual long Price => Call<long>("getPrice");
 
-        public virtual string Currency => CallAsString("getCurrency");
+		public virtual string Country => CallAsString("getCountry");
 
-        public virtual long Price => Call<long>("getPrice");
+		public virtual string LastOrderId => CallAsString("getLastOrderId");
 
-        public virtual string Country => CallAsString("getCountry");
+		public virtual string ProductGroup => CallAsString("getProductGroup");
 
-        public virtual string LastOrderId => CallAsString("getLastOrderId");
+		public virtual long OriPurchaseTime => Call<long>("getOriPurchaseTime");
 
-        public virtual string ProductGroup => CallAsString("getProductGroup");
+		public virtual string SubscriptionId => CallAsString("getSubscriptionId");
 
-        public virtual long OriPurchaseTime => Call<long>("getOriPurchaseTime");
+		public virtual int Quantity => Call<int>("getQuantity");
 
-        public virtual string SubscriptionId => CallAsString("getSubscriptionId");
+		public virtual long DaysLasted => Call<long>("getDaysLasted");
 
-        public virtual int Quantity => Call<int>("getQuantity");
+		public virtual long NumOfPeriods => Call<long>("getNumOfPeriods");
 
-        public virtual long DaysLasted => Call<long>("getDaysLasted");
+		public virtual long NumOfDiscount => Call<long>("getNumOfDiscount");
 
-        public virtual long NumOfPeriods => Call<long>("getNumOfPeriods");
+		public virtual long ExpirationDate => Call<long>("getExpirationDate");
 
-        public virtual long NumOfDiscount => Call<long>("getNumOfDiscount");
+		public virtual int ExpirationIntent => Call<int>("getExpirationIntent");
 
-        public virtual long ExpirationDate => Call<long>("getExpirationDate");
+		public virtual int RetryFlag => Call<int>("getRetryFlag");
 
-        public virtual int ExpirationIntent => Call<int>("getExpirationIntent");
+		public virtual int IntroductoryFlag => Call<int>("getIntroductoryFlag");
 
-        public virtual int RetryFlag => Call<int>("getRetryFlag");
+		public virtual int TrialFlag => Call<int>("getTrialFlag");
 
-        public virtual int IntroductoryFlag => Call<int>("getIntroductoryFlag");
+		public virtual long CancelTime => Call<long>("getCancelTime");
 
-        public virtual int TrialFlag => Call<int>("getTrialFlag");
+		public virtual int CancelReason => Call<int>("getCancelReason");
 
-        public virtual long CancelTime => Call<long>("getCancelTime");
+		public virtual string AppInfo => CallAsString("getAppInfo");
 
-        public virtual int CancelReason => Call<int>("getCancelReason");
+		public virtual int NotifyClosed => Call<int>("getNotifyClosed");
 
-        public virtual string AppInfo => CallAsString("getAppInfo");
+		public virtual int RenewStatus => Call<int>("getRenewStatus");
 
-        public virtual int NotifyClosed => Call<int>("getNotifyClosed");
+		public virtual int PriceConsentStatus => Call<int>("getPriceConsentStatus");
 
-        public virtual int RenewStatus => Call<int>("getRenewStatus");
+		public virtual long RenewPrice => Call<long>("getRenewPrice");
 
-        public virtual int PriceConsentStatus => Call<int>("getPriceConsentStatus");
+		public virtual bool SubValid => Call<bool>("isSubValid");
 
-        public virtual long RenewPrice => Call<long>("getRenewPrice");
+		public virtual int CancelledSubKeepDays => Call<int>("getCancelledSubKeepDays");
 
-        public virtual bool SubValid => Call<bool>("isSubValid");
+		public virtual int Kind => Call<int>("getKind");
 
-        public virtual int CancelledSubKeepDays => Call<int>("getCancelledSubKeepDays");
+		public virtual string DeveloperChallenge => CallAsString("getDeveloperChallenge");
 
-        public virtual int Kind => Call<int>("getKind");
+		public virtual int ConsumptionState => Call<int>("getConsumptionState");
 
-        public virtual string DeveloperChallenge => CallAsString("getDeveloperChallenge");
+		public virtual string PayOrderId => CallAsString("getPayOrderId");
 
-        public virtual int ConsumptionState => Call<int>("getConsumptionState");
+		public virtual string PayType => CallAsString("getPayType");
 
-        public virtual string PayOrderId => CallAsString("getPayOrderId");
+		public virtual int DeferFlag => Call<int>("getDeferFlag");
 
-        public virtual string PayType => CallAsString("getPayType");
+		public virtual string OriSubscriptionId => CallAsString("getOriSubscriptionId");
 
-        public virtual int DeferFlag => Call<int>("getDeferFlag");
+		public virtual int CancelWay => Call<int>("getCancelWay");
 
-        public virtual string OriSubscriptionId => CallAsString("getOriSubscriptionId");
+		public virtual long CancellationTime => Call<long>("getCancellationTime");
 
-        public virtual int CancelWay => Call<int>("getCancelWay");
+		public virtual long ResumeTime => Call<long>("getCancellationTime");
 
-        public virtual long CancellationTime => Call<long>("getCancellationTime");
+		public virtual long GraceExpirationTime => Call<long>("getGraceExpirationTime");
 
-        public virtual long ResumeTime => Call<long>("getCancellationTime");
-
-        public virtual long GraceExpirationTime => Call<long>("getGraceExpirationTime");
-
-        public virtual int AccountFlag => Call<int>("getAccountFlag");
-
-    }
-
+		public virtual int AccountFlag => Call<int>("getAccountFlag");
+	}
 }

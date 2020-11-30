@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace HuaweiMobileServices.Id
 {
-	using Utils;
-	using UnityEngine;
-
 	// Wrapper for com.huawei.hms.support.hwid.result.AuthHuaweiId
 	public class AuthHuaweiId : JavaObjectWrapper
 	{
-		[UnityEngine.Scripting.Preserve]
+		[Preserve]
 		public AuthHuaweiId(AndroidJavaObject javaObject) : base(javaObject)
 		{
 		}

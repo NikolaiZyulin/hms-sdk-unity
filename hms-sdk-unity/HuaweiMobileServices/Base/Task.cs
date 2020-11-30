@@ -6,13 +6,11 @@ namespace HuaweiMobileServices.Base
 
 	public class Task : JavaObjectWrapper
 	{
-		private const string CLASS_NAME = "com.huawei.hmf.tasks.Task";
-
 		public Task(AndroidJavaObject javaObject) : base(javaObject)
 		{
 		}
 
-		public Task() : base(CLASS_NAME)
+		public Task() : base("com.huawei.hmf.tasks.Task")
 		{
 		}
 

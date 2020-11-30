@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.util.Log;
 
-import com.huawei.hms.iap.Iap;
-import com.huawei.hms.iap.entity.PurchaseResultInfo;
 import com.huawei.hms.support.api.client.Status;
-import com.unity3d.player.UnityPlayer;
 
 import org.unity.android.hms.unity.BridgeType;
 import org.unity.android.hms.unity.GenericBridgeCallback;
