@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HuaweiMobileServices.Base;
+using HuaweiMobileServices.Utils;
+using UnityEngine;
+using UnityEngine.Scripting;
+using Void = HuaweiMobileServices.Utils.Void;
 
 namespace HuaweiMobileServices.Id
 {
-	using HuaweiMobileServices.Base;
-	using Utils;
-	using UnityEngine;
-
 	public class HuaweiIdAuthService : JavaObjectWrapper
 	{
 		private static readonly AndroidJavaClass GenericBridgeClass = new AndroidJavaClass("org.unity.android.hms.unity.GenericBridge");
 
-		[UnityEngine.Scripting.Preserve]
+		[Preserve]
 		public HuaweiIdAuthService(AndroidJavaObject javaObject) : base(javaObject)
+		{
+		}
+
+		[Preserve]
+		public HuaweiIdAuthService() : base("com.huawei.hms.support.hwid.service.HuaweiIdAuthService")
 		{
 		}
 
@@ -21,7 +27,7 @@ namespace HuaweiMobileServices.Id
 			var intent = Call<AndroidJavaObject>("getSignInIntent");
 			var callback = new GenericBridgeCallbackWrapper()
 				.AddOnFailureListener(onFailure)
-				.AddOnSuccessListener((resultIntent) =>
+				.AddOnSuccessListener(resultIntent =>
 				{
 					HuaweiIdAuthManager.ParseAuthResultFromIntent(resultIntent)
 						.AddOnFailureListener(onFailure)

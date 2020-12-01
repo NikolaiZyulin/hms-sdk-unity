@@ -28,9 +28,6 @@ public class NativeBridgeActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!StatusBridge.HasStatus()) {
-            return;
-        }
 
         Log.d(TAG, "[HMS] onCreate");
         final Intent intent = getIntent();
@@ -41,6 +38,10 @@ public class NativeBridgeActivity extends Activity {
                 Log.d(TAG, "[HMS] onCreate type " + type);
                 switch (type) {
                     case StatusBridge.STATUS:
+                        if (!StatusBridge.HasStatus()) {
+                            return;
+                        }
+
                         Log.d(TAG, "[HMS] onCreate type StatusBridge.STATUS");
                         StatusBridge.launchStartResolutionForResult(this);
                         break;
